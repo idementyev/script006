@@ -26,9 +26,8 @@ with open(phones_file, 'r') as in_f:
     lines = in_f.readlines()
     for line in lines:
         line = line.strip()
-        digits = re.findall(digit_re, line)
+        digits = "".join(re.findall(digit_re, line))
         length = len(digits)
-        digits_int = "".join(digits)
 
         if 10 <= length <= 11:
             # number of digits is valid
@@ -36,9 +35,9 @@ with open(phones_file, 'r') as in_f:
                 # has prefix
                 if line.startswith("+7") or line.startswith("8"):
                     # found +7 or 8, truncating first digit
-                    digits_int = digits_int[1:]
+                    digits = digits[1:]
 
-            if russian_code(digits_int):
-                valid.append(digits_int)
+            if russian_code(digits):
+                valid.append(digits)
 
 print(valid)
