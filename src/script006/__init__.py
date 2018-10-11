@@ -1,2 +1,2 @@
 from . import labs
-from . import examples
+from . import simple_scripts

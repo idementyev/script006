@@ -9,7 +9,9 @@ setup(
     license='',
     author='mkoshel',
     author_email='',
-    description=''
+    description='',
+    # setup_requires=["pytest-runner",],
+    # tests_require=["pytest",],
 )
 
 # run me with python setup.py bdist_wheel

@@ -7,10 +7,6 @@ def delegating_generator():
     print("I'm inside delegating_generator: {}".format(x))
     # yield x
 
-
-
-
-
 def coroutine():
     print("coroutine started!")
     while True:

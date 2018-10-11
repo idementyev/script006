@@ -1,0 +1,12 @@
+language: python
+
+python:
+    - "3.5"
+virtualenv:
+  system_site_packages: false
+
+install:
+    - pip install --upgrade pip
+    - pip install --upgrade -r requirements.txt
+script:
+    - python setup.py test

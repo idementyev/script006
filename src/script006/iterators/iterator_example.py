@@ -1,5 +1,4 @@
-from typing import Iterable, List, Iterator
-
+from typing import Iterable, List, Iterator, Any
 
 def iter_through(i: Iterable) -> List:
     l: List = []

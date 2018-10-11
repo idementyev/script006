@@ -50,6 +50,5 @@ if __name__ == '__main__':
         Page size (bytes): 4096
         Exit status: 0
 
-
 """
 
