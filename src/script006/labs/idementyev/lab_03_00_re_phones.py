@@ -10,7 +10,7 @@ __version__ = '0.0.1'
 __author__ = 'Ilya R. Dementyev'
 __date__ = '2018-10-11'
 
-phones_file = "___03_re_phones_list.txt"
+phones_file = "lab_03_00_re_phones_list.txt"
 digit_re = re.compile("\d")
 
 
