@@ -16,4 +16,4 @@ tests = [
 
 @pytest.mark.parametrize("case, result", tests)
 def test_summary(case, result):
-    assert numbers_sum(case) == result
+    assert result == numbers_sum(case)
