@@ -7,9 +7,7 @@ start_time = time.time()
 # number of unique URLs to get from file
 uniq_number = 10
 
-directory = "d:/"
-#directory = "f:/_luxoft/sortmaster/"
-#filename = "2018-10-16_requests.log"
+directory = "C:/_share"
 filename = "all.log"
 
 # sanity checks
@@ -19,16 +17,25 @@ req_file = os.path.abspath(os.path.normpath(os.path.join(directory, filename)))
 url_re = "\[[-_a-zA-Z0-9/а-яА-Я ]+\] "
 url_re = re.compile(url_re)
 
+url_popularity = {}
+
 # open file
 with open(req_file, encoding='utf-8') as rf:
     # get URL from every line
     lines = rf.readlines()
-    print("Lines in file: {}".format(len(lines)))
+    # print("Lines in file: {}".format(len(lines)))
     matches = 0
     skips = 0
     matched = []
     skipped = []
     for line in lines:
+    #for i, line in enumerate(lines):
+        # everybody loves pretty debug
+        # if i % 10000 == 0:
+        #     print(".", end="")
+        # if i % 500000 == 0:
+        #     print("X")
+
         # split by '] '
         sections = line.split('] ')
         try:
@@ -41,32 +48,26 @@ with open(req_file, encoding='utf-8') as rf:
             if url_re.match(url):
                 matches += 1
                 matched.append(url)
-            else:
-                print("Not able to match: {}".format(url))
+                try:
+                    url_popularity[url] += 1
+                except KeyError:
+                    url_popularity[url] = 1
 
-print("Matches: {}\nSkips: {}\nParsed: {}".format(matches,
-                                                  skips,
-                                                  matches + skips))
+            #else:
+                #print("Not able to match: {}".format(url))
+
+parsed = matches + skips
+print("\nMatches: {}\nSkips: {} ({:.3f}%)\nParsed: {}".format(matches,
+                                                              skips,
+                                                              skips / parsed,
+                                                              parsed))
 
 uniq = list(set(matched))
 print("Found unique URLs: {}".format(len(uniq)))
 
 # for every unique count number of times it's found and append to dict
-url_popularity = {}
-progress = 0
-for u in uniq:
-    url_popularity[u] = 0
-    progress += 1
-    if progress % 10 == 0:
-        print(".", end="")
-    if progress % 1000 == 0:
-        print("X")
-    for m in matched:
-        if u == m:
-            url_popularity[u] += 1
 
-
-print("\nDone with popularity contest\n")
+print("Done with popularity contest\n")
 
 # now we have a dict with a unique key and number as a value
 # sort it by value and place in a tuple
