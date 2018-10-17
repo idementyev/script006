@@ -7,7 +7,7 @@ start_time = time.time()
 # number of unique URLs to get from file
 uniq_number = 10
 
-directory = "d:/"
+directory = "C:/_share"
 #directory = "f:/_luxoft/sortmaster/"
 #filename = "2018-10-16_requests.log"
 filename = "all.log"
@@ -18,6 +18,8 @@ req_file = os.path.abspath(os.path.normpath(os.path.join(directory, filename)))
 # re for URL
 url_re = "\[[-_a-zA-Z0-9/а-яА-Я ]+\] "
 url_re = re.compile(url_re)
+
+url_popularity = {}
 
 # open file
 with open(req_file, encoding='utf-8') as rf:
@@ -41,6 +43,11 @@ with open(req_file, encoding='utf-8') as rf:
             if url_re.match(url):
                 matches += 1
                 matched.append(url)
+                try:
+                    url_popularity[url] += 1
+                except KeyError:
+                    url_popularity[url] = 1
+
             else:
                 print("Not able to match: {}".format(url))
 
@@ -52,18 +59,18 @@ uniq = list(set(matched))
 print("Found unique URLs: {}".format(len(uniq)))
 
 # for every unique count number of times it's found and append to dict
-url_popularity = {}
-progress = 0
-for u in uniq:
-    url_popularity[u] = 0
-    progress += 1
-    if progress % 10 == 0:
-        print(".", end="")
-    if progress % 1000 == 0:
-        print("X")
-    for m in matched:
-        if u == m:
-            url_popularity[u] += 1
+
+# progress = 0
+# for u in uniq:
+#     url_popularity[u] = 0
+#     progress += 1
+#     if progress % 10 == 0:
+#         print(".", end="")
+#     if progress % 1000 == 0:
+#         print("X")
+#     for m in matched:
+#         if u == m:
+#             url_popularity[u] += 1
 
 
 print("\nDone with popularity contest\n")
